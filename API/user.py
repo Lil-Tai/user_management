@@ -2,6 +2,7 @@ import sqlite3
 from flask_restful import Resource, reqparse
 from flask import Flask, request
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_jwt import jwt_required
 
 class User:
     def __init__(self, id, username, password):
@@ -78,6 +79,7 @@ class UserRegister(Resource):
         return {'message': 'Has mistake'}
           
 class UserInformation(Resource):
+    @jwt_required()
     def get(self, username):
         user_info = self.find_by_username(username)
         if user_info:

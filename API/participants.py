@@ -104,7 +104,6 @@ class Participant(Resource):
 
 class ParticipantList(Resource):
     #get all data from participants table
-    @jwt_required()
     def get(self):
         connection = sqlite3.connect('data.db')
         cursor = connection.cursor()
