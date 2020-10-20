@@ -1,9 +1,12 @@
 from flask import Flask, request
 from flask_restful import Resource
+from flask_jwt import jwt_required
 import sqlite3
 
 
+
 class Participant(Resource):
+    @jwt_required()
     #get by id_user
     def get(self, name):
         paritcipant = self.find_by_name(name)
@@ -21,7 +24,7 @@ class Participant(Resource):
 
         participant = []
         for row in result:
-            participant.append({'participant': {'id': row[0], 'id_events': row[1], 'id_users': row[2], 'event_name': row[3], 'starting_time': row[4], 'ending_time': row[5], 'image': row[6], 'discount_rate': row[7], 'discount_rules': row[8], 'price': row[9]}}) 
+            participant.append({'participant': {'id': row[0], 'id_events': row[1], 'id_users': row[2]}}) 
         
         connection.close()
         return {'participant': participant}
@@ -30,7 +33,7 @@ class Participant(Resource):
     def post(self, name):
         data = request.get_json()
 
-        participant = {'id_users': name, 'id_events': data['id_events'], 'event_name': data['event_name'], 'starting_time': data['starting_time'], 'ending_time': data['ending_time'], 'image': data['image'], 'discount_rate': data['discount_rate'], 'discount_rules': data['discount_rules'], 'price': data['price']}
+        participant = {'id_users': name, 'id_events': data['id_events']}
 
         try:
             self.insert(participant)
@@ -43,8 +46,8 @@ class Participant(Resource):
         connection = sqlite3.connect('data.db')
         cursor = connection.cursor()
 
-        query = "INSERT INTO participants VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ? ,?)"
-        cursor.execute(query, (participant['id_events'], participant['id_users'], participant['event_name'], participant['starting_time'], participant['ending_time'], participant['image'], participant['discount_rate'], participant['discount_rules'], participant['price']))
+        query = "INSERT INTO participants VALUES (NULL, ?, ?)"
+        cursor.execute(query, (participant['id_events'], participant['id_users']))
 
         connection.commit()
         connection.close()
@@ -66,7 +69,7 @@ class Participant(Resource):
         data = request.get_json()
 
         participant = self.find_by_id(name)
-        update_participant = {'id': name, 'event_name': data['event_name'], 'starting_time': data['starting_time'], 'ending_time': data['ending_time'], 'image': data['image'], 'discount_rate': data['discount_rate'], 'discount_rules': data['discount_rules'], 'price': data['price']}
+        update_participant = {'id': name, 'id_events': data['id_events']}
         
         if participant:
             try:
@@ -81,8 +84,8 @@ class Participant(Resource):
         connection = sqlite3.connect('data.db')
         cursor = connection.cursor()
 
-        query = "UPDATE participants SET event_name=?, starting_time=?, ending_time=?,  image=?, discount_rate=?, discount_rules=?, price=? WHERE id=?"
-        cursor.execute(query, (participant['event_name'],participant['starting_time'], participant['ending_time'], participant['image'], participant['discount_rate'], participant['discount_rules'], participant['price'], participant['id']))
+        query = "UPDATE participants SET id_events=? WHERE id=?"
+        cursor.execute(query, (participant['id_events'], participant['id']))
 
         connection.commit()
         connection.close()
@@ -97,10 +100,11 @@ class Participant(Resource):
         row = result.fetchone()
         connection.close()
         if row:
-            return {'participant': {'participant': {'id': row[0], 'id_events': row[1], 'id_users': row[2], 'event_name': row[3], 'starting_time': row[4], 'ending_time': row[5], 'image': row[6], 'discount_rate': row[7], 'discount_rules': row[8], 'price': row[9]}}}
+            return {'participant': {'participant': {'id': row[0], 'id_events': row[1], 'id_users': row[2]}}}
 
 class ParticipantList(Resource):
     #get all data from participants table
+    @jwt_required()
     def get(self):
         connection = sqlite3.connect('data.db')
         cursor = connection.cursor()
@@ -109,7 +113,7 @@ class ParticipantList(Resource):
         result = cursor.execute(query)
         participants = []
         for row in result:
-            participants.append({'id': row[0], 'id_events': row[1], 'id_users': row[2], 'event_name': row[3], 'starting_time': row[4], 'ending_time': row[5], 'image': row[6], 'discount_rate': row[7], 'discount_rules': row[8], 'price': row[9]})
+            participants.append({'id': row[0], 'id_events': row[1], 'id_users': row[2]})
 
         connection.close()
 
