@@ -14,7 +14,7 @@ api = Api(app)
 
 jwt = JWT(app, authenticate, identity) # /auth
 
-api.add_resource(Participant, '/participant/<string:name>')
+api.add_resource(Participant, '/participants/<string:name>')
 api.add_resource(ParticipantList, '/participants')
 api.add_resource(UserRegister, '/register')
 api.add_resource(UserInformation, '/user/<string:username>')
