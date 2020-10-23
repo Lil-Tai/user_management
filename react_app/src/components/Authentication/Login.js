@@ -13,13 +13,23 @@ function Login(props) {
     if (username != "" && password != "") {
       check_authentication()
     }
+    let token = localStorage.getItem('token');
+    axios.get('http://localhost:5000/protected', 
+      {headers: {Authorization : 'JWT '+ token}
+      })
+    .then((response)=>{console.log(response);
+      props.user_login();
+      props.history.push("/")
+    }).catch((error)=>{console.log(error);}
+    )
   })
+  
   // set username and password after form submit    
   function form_submit(event) {
     setUsername(event.target['username'].value);
     setPassword(event.target['password'].value);
   };
-
+  
   // request for jwt    
   function check_authentication() {
     axios.post('http://localhost:5000/auth', {

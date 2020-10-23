@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import styles from './Header.module.css';
+import {Link} from "react-router-dom";
 
 function Header(props) {
   const [isAuthenticated, setIsAuthenticated] = useState(props.isAuthenticated);
@@ -13,7 +14,7 @@ function Header(props) {
       <div>
       <div id={styles.header}>
       <div>This is header</div>
-      <button onClick={()=>{props.login_button()}}>login</button>
+      <a href="http://localhost:3000/login"><button>Login</button></a>
       </div>
       </div>
     );
