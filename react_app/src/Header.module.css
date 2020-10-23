@@ -1,0 +1,8 @@
+#header{
+    background: #fffefe;
+    position: fixed;
+    z-index: 31;
+    width: 100%;
+    top: 0;
+    box-shadow: 10px 0px 5px grey
+}

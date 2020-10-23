@@ -24,7 +24,7 @@ class Participant(Resource):
 
         participant = []
         for row in result:
-            participant.append({'id': row[0], 'id_events': row[1], 'id_users': row[2]}}) 
+            participant.append({'id': row[0], 'id_events': row[1], 'id_users': row[2]}) 
         
         connection.close()
         return {'participant': participant}
@@ -100,7 +100,7 @@ class Participant(Resource):
         row = result.fetchone()
         connection.close()
         if row:
-            return {'participant': {'id': row[0], 'id_events': row[1], 'id_users': row[2]}}}
+            return {'participant': {'id': row[0], 'id_events': row[1], 'id_users': row[2]}}
 
 class ParticipantList(Resource):
     #get all data from participants table
