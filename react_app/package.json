@@ -13,10 +13,16 @@
     "axios": "^0.20.0",
     "bootstrap": "^4.5.3",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "mdbreact": "^4.27.0",
     "nodemon": "^2.0.6",
 =======
 >>>>>>> login_react
+=======
+    "mdbreact": "^4.27.0",
+    "nodemon": "^2.0.6",
+
+>>>>>>> 92ca9683a00954bbfd685ce6c24befcef9d182b1
     "react": "^16.13.1",
     "react-bootstrap": "^1.4.0",
     "react-dom": "^16.13.1",
