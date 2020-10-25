@@ -100,7 +100,7 @@ class Participant(Resource):
         row = result.fetchone()
         connection.close()
         if row:
-            return {'participant': {'participant': {'id': row[0], 'id_events': row[1], 'id_users': row[2]}}}
+            return {'participant': {'id': row[0], 'id_events': row[1], 'id_users': row[2]}}
 
 class ParticipantList(Resource):
     #get all data from participants table

@@ -4,6 +4,7 @@ from flask import Flask, request
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt import jwt_required
 
+
 class User:
     def __init__(self, id, username, password):
         self.id = id

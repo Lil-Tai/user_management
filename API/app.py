@@ -6,11 +6,16 @@ from security import authenticate, identity
 from user import UserRegister, UserInformation, ForgotPassword
 from events import Events, EventsId, Count
 from flask_marshmallow import Marshmallow
+from flask_cors import CORS
+
+app = Flask(__name__)
+
 
 app = Flask(__name__)
 ma = Marshmallow(app)
 app.secret_key = "daniel"
 api = Api(app)
+cors = CORS(app)
 
 jwt = JWT(app, authenticate, identity) # /auth
 
