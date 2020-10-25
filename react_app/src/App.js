@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import EventsItem from './components/EventsItem';
 import DetailsEvents from './components/DetailsEvents';
+
 import Login from './components/Authentication/Login'
 import Register from './components/Register/Register'
 import axios from 'axios';
 import Header from './header';
 import Footer from './footer';
+
 
 export default class App extends Component {
   constructor(props) {
@@ -16,6 +18,7 @@ export default class App extends Component {
       join: "info",
       isAuthenticated: false,
       token: ""
+
     }
   }
 
@@ -52,17 +55,19 @@ export default class App extends Component {
     setToken(token)
     console.log(isAuthenticated)
   }
+
+
   getEventsInfo = (getEventsId) => {
     return this.state.events.find(events => events.id === getEventsId);
   }
 
   getJoinEvent = (e) => {
     e.preventDefault()
-    if (this.state.join === "info") {
+    if(this.state.join === "info"){
       this.setState({
         join: "danger"
       })
-    } else {
+    }else{
       this.setState({
         join: "info"
       })
@@ -84,6 +89,7 @@ export default class App extends Component {
         </div>
         <Footer />
       </div>
+
     );
 
   }
