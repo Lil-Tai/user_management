@@ -56,9 +56,24 @@ export default class App extends Component {
     return this.state.events.find(events => events.id === getEventsId);
   }
 
+<<<<<<< HEAD
   getJoinEvent = (e) => {
     e.preventDefault()
     if (this.state.join === "info") {
+=======
+  getParticipants = (getEventsParti) => {
+    var count = 0;
+    var participant = this.state.participant.filter(participant => participant.id_events === getEventsParti)
+    for( var i = 1; i <= participant.length; i++){
+        count += 1
+    }
+    return count
+  }
+
+  getJoinEvent = (id) => {
+    console.log(id)
+    if(this.state.join === "info"){
+>>>>>>> c9ddffbff8f4009ef88f4e4947d75546fb280cf4
       this.setState({
         join: "danger"
       })
