@@ -24,7 +24,7 @@ class Participant(Resource):
 
         participant = []
         for row in result:
-            participant.append({'participant': {'id': row[0], 'id_events': row[1], 'id_users': row[2]}}) 
+            participant.append({'id': row[0], 'id_events': row[1], 'id_users': row[2]}) 
         
         connection.close()
         return {'participant': participant}

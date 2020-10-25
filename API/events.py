@@ -59,8 +59,12 @@ class EventsId(Resource):
     def delete(self, id):
         connection = sqlite3.connect('data.db')
         cursor = connection.cursor()
+<<<<<<< HEAD
         cursor.execute("PRAGMA foreign_keys = ON")
 
+=======
+        cursor.execute("PRAGMA foreign_keys = ON;")
+>>>>>>> 06e98d7c8dec752ba2662f1746ac3f57f0c38030
         query = "DELETE FROM events WHERE id=?"
         cursor.execute(query, (id,))
 
