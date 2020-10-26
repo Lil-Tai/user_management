@@ -6,7 +6,6 @@ function Header(props) {
   const [isAuthenticated, setIsAuthenticated] = useState(props.isAuthenticated);
   useEffect(()=>{
       setIsAuthenticated(props.isAuthenticated)
-      console.log(1)
   })
   if (props.isAuthenticated == false)
   {

@@ -95,7 +95,7 @@ class UserInformation(Resource):
         result = cursor.execute(query, (username,))
         row = result.fetchone()
         if row:
-            user = {'id': row[0], 'username': row[1], 'password': row[2], 'last_name': row[3]}
+            user = {'id': row[0], 'username': row[1], 'dob': row[5]}
         else:
             user = None
 
