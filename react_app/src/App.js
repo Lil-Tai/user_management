@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import EventsItem from './components/EventsItem';
 import DetailsEvents from './components/DetailsEvents';
-
 import Login from './components/Authentication/Login'
 import Register from './components/Register/Register'
+import DiscountEvents from './components/Event_Filter/DiscountEvents'
 import axios from 'axios';
 import Header from './header';
 import Footer from './footer';
-
 
 export default class App extends Component {
   constructor(props) {
@@ -17,8 +16,9 @@ export default class App extends Component {
       events: [],
       join: "info",
       isAuthenticated: false,
-      token: ""
-
+      token: "",
+      username: "",
+      user: null,
     }
   }
 
@@ -32,31 +32,40 @@ export default class App extends Component {
       })
 
     //send jwt token
+    this.user_login()
+  }
+
+
+  user_login = () => {
+    //console.log('hello', isAuthenticated);
     let token = localStorage.getItem('token');
-    console.log(token)
+    this.setState({ token: token })
     axios.get('http://localhost:5000/protected',
       {
         headers: { Authorization: 'JWT ' + token }
       })
       .then((response) => {
-        console.log(response);
-        setToken(token)
-      }).catch((error) => {
+        this.setState({ username: response.data })
+        this.setState({ token: token })
+      }).then(axios.get('http://localhost:5000/user/' + this.state.username,
+        {
+          headers: { Authorization: 'JWT ' + token }
+        })
+        .then((response) => {
+          this.setState({ user: response.data })
+          console.log(this.state.user)
+          this.setState({ isAuthenticated: true })
+        }).catch((error) => {
+          console.log(error);
+          this.setState({ isAuthenticated: false })
+        }))
+      .catch((error) => {
         console.log(error);
         this.setState({ isAuthenticated: false })
       })
+
+    //console.log(isAuthenticated)
   }
-
-
-  user_login = () => {
-    this.setState({ isAuthenticated: true })
-    console.log('hello', isAuthenticated);
-    let token = localStorage.getItem('token');
-    setToken(token)
-    console.log(isAuthenticated)
-  }
-
-
   getEventsInfo = (getEventsId) => {
     return this.state.events.find(events => events.id === getEventsId);
   }
@@ -64,19 +73,19 @@ export default class App extends Component {
   getParticipants = (getEventsParti) => {
     var count = 0;
     var participant = this.state.participant.filter(participant => participant.id_events === getEventsParti)
-    for( var i = 1; i <= participant.length; i++){
-        count += 1
+    for (var i = 1; i <= participant.length; i++) {
+      count += 1
     }
     return count
   }
 
   getJoinEvent = (id) => {
     console.log(id)
-    if(this.state.join === "info"){
+    if (this.state.join === "info") {
       this.setState({
         join: "danger"
       })
-    }else{
+    } else {
       this.setState({
         join: "info"
       })
@@ -86,19 +95,19 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <Header isAuthenticated={isAuthenticated} />
+        <Header isAuthenticated={this.state.isAuthenticated} />
         <div style={{ marginTop: "100px" }}>
           <Router>
-            <Route path='/login' render={(props) => (<Login {...props} isAuthenticated={isAuthenticated}
-              user_login={user_login} />)} />
+            <Route path='/login' render={(props) => (<Login {...props} isAuthenticated={this.state.isAuthenticated}
+              user_login={this.user_login} />)} />
+            <Route path='/discount' render={(props) => (<DiscountEvents {...props} user={this.state.user} event={this.state.event} />)} />
             <Route path='/register' render={(props) => (<Register {...props} />)} />
             <Route path='/' exact render={routeProps => <EventsItem events={this.state.events} {...routeProps} />} />
-            <Route path='/events/:id' exact render={routeProps => <DetailsEvents getEventsInfo={this.getEventsInfo} join={this.state.join} getJoinEvent={this.getJoinEvent} {...routeProps} />} />
+            <Route path='/events/:id' exact render={routeProps => <DetailsEvents getEventsInfo={this.getEventsInfo} join={this.state.join} getJoinEvent={this.getJoinEvent} getParticipants={this.getParticipants} {...routeProps} />} />
           </Router>
         </div>
         <Footer />
       </div>
-
     );
 
   }

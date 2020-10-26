@@ -14,7 +14,6 @@
     "bootstrap": "^4.5.3",
     "mdbreact": "^4.27.0",
     "nodemon": "^2.0.6",
-
     "react": "^16.13.1",
     "react-bootstrap": "^1.4.0",
     "react-dom": "^16.13.1",
