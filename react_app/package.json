@@ -13,12 +13,14 @@
     "axios": "^0.20.0",
     "bootstrap": "^4.5.3",
     "mdbreact": "^4.27.0",
+    "moment": "^2.29.1",
     "nodemon": "^2.0.6",
     "react": "^16.13.1",
     "react-bootstrap": "^1.4.0",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.4"
+    "react-scripts": "^3.4.4",
+    "styled-components": "^5.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
