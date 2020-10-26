@@ -41,7 +41,7 @@ function Login(props) {
       .then((response) => {
         if (response.status == 200) {
           localStorage.setItem('token', response.data.access_token);
-          props.user_login();
+          props.user_login(username);
           props.history.push("/");
         }
       })

@@ -15,7 +15,10 @@ export default class App extends Component {
       events: [],
       join: "info",
       isAuthenticated: false,
-      token: ""
+      token: "",
+      username: "",
+      user:""
+
     }
   }
 
@@ -37,7 +40,7 @@ export default class App extends Component {
       })
       .then((response) => {
         console.log(response);
-        setToken(token)
+        this.setState({ token: token })
       }).catch((error) => {
         console.log(error);
         this.setState({ isAuthenticated: false })
@@ -45,22 +48,30 @@ export default class App extends Component {
   }
 
 
-  user_login = () => {
+  user_login = (username) => {
     this.setState({ isAuthenticated: true })
-    console.log('hello', isAuthenticated);
+    //console.log('hello', isAuthenticated);
     let token = localStorage.getItem('token');
-    setToken(token)
-    console.log(isAuthenticated)
+    this.setState({ token: token })
+    this.setState({username: username})
+    axios.get('http://localhost:5000/user/'+username,
+      {
+        headers: { Authorization: 'JWT ' + token }
+      })
+      .then((response) => {
+        console.log(response);
+        this.setState({ user: response })
+        console.log(user)
+      }).catch((error) => {
+        console.log(error);
+        this.setState({ isAuthenticated: false })
+      })
+    //console.log(isAuthenticated)
   }
   getEventsInfo = (getEventsId) => {
     return this.state.events.find(events => events.id === getEventsId);
   }
 
-<<<<<<< HEAD
-  getJoinEvent = (e) => {
-    e.preventDefault()
-    if (this.state.join === "info") {
-=======
   getParticipants = (getEventsParti) => {
     var count = 0;
     var participant = this.state.participant.filter(participant => participant.id_events === getEventsParti)
@@ -73,7 +84,6 @@ export default class App extends Component {
   getJoinEvent = (id) => {
     console.log(id)
     if(this.state.join === "info"){
->>>>>>> c9ddffbff8f4009ef88f4e4947d75546fb280cf4
       this.setState({
         join: "danger"
       })
