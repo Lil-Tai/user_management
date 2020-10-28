@@ -100,7 +100,7 @@ export default class App extends Component {
           <Router>
             <Route path='/login' render={(props) => (<Login {...props} isAuthenticated={this.state.isAuthenticated}
               user_login={this.user_login} />)} />
-            <Route path='/discount' render={(props) => (<DiscountEvents {...props} user={this.state.user} event={this.state.event} />)} />
+            <Route path='/discount' render={(props) => (<DiscountEvents {...props} user={this.state.user} events={this.state.events} />)} />
             <Route path='/register' render={(props) => (<Register {...props} />)} />
             <Route path='/' exact render={routeProps => <EventsItem events={this.state.events} {...routeProps} />} />
             <Route path='/events/:id' exact render={routeProps => <DetailsEvents getEventsInfo={this.getEventsInfo} join={this.state.join} getJoinEvent={this.getJoinEvent} getParticipants={this.getParticipants} {...routeProps} />} />
