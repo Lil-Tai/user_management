@@ -88,7 +88,7 @@ export default class App extends Component {
   }
 
   checkParticipant = (id) => {
-    var event = this.state.participants.find(participant => participant.id_events === id && participant.id_users === this.state.idUsers);
+    var event = this.state.participants.find(participant => participant.id_events === id && participant.id_users === this.state.user.id);
     if(event !== undefined){
       this.setState({
         join: "danger"
@@ -105,7 +105,7 @@ export default class App extends Component {
       this.setState({
         join: "danger"
       })
-      axios.post('http://localhost:5000/participants/' + this.state.idUsers, {
+      axios.post('http://localhost:5000/participants/' + this.state.user.id, {
         id_events: id
       }).then(() => {
         axios.get('http://localhost:5000/participants').then(result => {
@@ -116,7 +116,7 @@ export default class App extends Component {
         })
       })
     }else{
-      var event = this.state.participants.find(participant => participant.id_events === id && participant.id_users === this.state.idUsers);
+      var event = this.state.participants.find(participant => participant.id_events === id && participant.id_users === this.state.user.id);
       this.setState({
         join: "info"
       })
@@ -135,19 +135,7 @@ export default class App extends Component {
   }
 
   checkParticipant = (id) => {
-    var event = this.state.participants.find(participant => participant.id_events === id && participant.id_users === this.state.idUsers);
-    if (event !== undefined) {
-      this.setState({
-        join: "danger"
-      })
-    } else {
-      this.setState({
-        join: "info"
-      })
-    }
-  }
-  checkParticipant = (id) => {
-    var event = this.state.participants.find(participant => participant.id_events === id && participant.id_users === this.state.idUsers);
+    var event = this.state.participants.find(participant => participant.id_events === id && participant.id_users === this.state.user.id);
     if (event !== undefined) {
       this.setState({
         join: "danger"
