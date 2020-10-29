@@ -19,7 +19,7 @@ function Login(props) {
       })
     .then((response)=>{console.log(response);
       props.user_login();
-      props.history.push("/discount")
+      props.history.push("/")
     }).catch((error)=>{console.log(error);}
     )
   })
@@ -42,7 +42,7 @@ function Login(props) {
         if (response.status == 200) {
           localStorage.setItem('token', response.data.access_token);
           props.user_login();
-          props.history.push("/discount");
+          props.history.push("/");
         }
       })
       .catch(error => {
