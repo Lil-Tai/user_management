@@ -134,18 +134,6 @@ export default class App extends Component {
     }
   }
 
-  checkParticipant = (id) => {
-    var event = this.state.participants.find(participant => participant.id_events === id && participant.id_users === this.state.user.id);
-    if (event !== undefined) {
-      this.setState({
-        join: "danger"
-      })
-    } else {
-      this.setState({
-        join: "info"
-      })
-    }
-  }
   render() {
     return (
       <div>
