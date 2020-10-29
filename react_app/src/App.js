@@ -8,6 +8,7 @@ import DiscountEvents from './components/Event_Filter/DiscountEvents'
 import axios from 'axios';
 import Header from './header';
 import Footer from './footer';
+import UpdateInfo from './components/UpdateInfo';
 
 export default class App extends Component {
   constructor(props) {
@@ -26,18 +27,18 @@ export default class App extends Component {
   componentDidMount = () => {
     axios.get('http://localhost:5000/events').then(result => {
       this.setState({ events: result.data.events })
-      console.log(result)
     })
       .catch(error => {
         console.error(error);
       })
 
     axios.get('http://localhost:5000/participants').then(result => {
-      this.setState({ participants: result.data.participants })
+        this.setState({ participants: result.data.participants })
     })
       .catch(error => {
-        console.error(error);
+          console.error(error);
       })
+
     //send jwt token
     this.user_login()
   }
@@ -86,36 +87,49 @@ export default class App extends Component {
     return count
   }
 
-  getJoinEvent = (id) => {
-    if (this.state.join === "info") {
+  checkParticipant = (id) => {
+    var event = this.state.participants.find(participant => participant.id_events === id && participant.id_users === this.state.idUsers);
+    if(event !== undefined){
       this.setState({
         join: "danger"
       })
-      axios.post('http://localhost:5000/participants/' + this.state.user.id, {
+    }else{
+      this.setState({
+        join: "info"
+      })
+    }
+  }
+
+  getJoinEvent = (id) => {
+    if(this.state.join === "info"){
+      this.setState({
+        join: "danger"
+      })
+      axios.post('http://localhost:5000/participants/' + this.state.idUsers, {
         id_events: id
       }).then(() => {
         axios.get('http://localhost:5000/participants').then(result => {
-          this.setState({ participants: result.data.participants })
-        })
-          .catch(error => {
-            console.error(error);
-          })
+        this.setState({ participants: result.data.participants })
       })
-    } else {
+        .catch(error => {
+            console.error(error);
+        })
+      })
+    }else{
       var event = this.state.participants.find(participant => participant.id_events === id && participant.id_users === this.state.idUsers);
       this.setState({
         join: "info"
       })
-      if (event !== undefined) {
+      if(event !== undefined){
         axios.delete('http://localhost:5000/participants/' + event.id)
-          .then(() => {
-            axios.get('http://localhost:5000/participants').then(result => {
-              this.setState({ participants: result.data.participants })
-            })
-              .catch(error => {
-                console.error(error);
-              })
+        .then(() => {
+          axios.get('http://localhost:5000/participants').then(result => {
+          this.setState({ participants: result.data.participants })
+        })
+          .catch(error => {
+              console.error(error);
           })
+        })
       }
     }
   }
@@ -153,8 +167,9 @@ export default class App extends Component {
             <Route path='/login' render={(props) => (<Login {...props} isAuthenticated={this.state.isAuthenticated}
               user_login={this.user_login} />)} />
             <Route path='/register' render={(props) => (<Register {...props} />)} />
-            <Route path='/' exact render={routeProps => <EventsItem events={this.state.events} user={this.state.user} {...routeProps} />} />
+            <Route path='/' exact render={routeProps => <EventsItem events={this.state.events} checkParticipant={this.checkParticipant} user={this.state.user} {...routeProps} />} />
             <Route path='/events/:id' exact render={routeProps => <DetailsEvents getEventsInfo={this.getEventsInfo} join={this.state.join} getJoinEvent={this.getJoinEvent} getParticipants={this.getParticipants} {...routeProps} />} />
+            <Route path='/upinfo' exact render={routeProps => <UpdateInfo username={this.state.username}  {...routeProps}/>} />
           </Router>
         </div>
         <Footer />
