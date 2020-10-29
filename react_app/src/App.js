@@ -18,11 +18,10 @@ export default class App extends Component {
       join: "info",
       isAuthenticated: false,
       token: "",
-      //username: "",
+      username: "",
       user: null,
       participants: [],
       idUsers: 3, // need to change
-      username: "dinhtai040197"
     }
   }
 
