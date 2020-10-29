@@ -19,6 +19,7 @@ export default class App extends Component {
       token: "",
       username: "",
       user: null,
+      participants: [],
     }
   }
 
@@ -31,6 +32,12 @@ export default class App extends Component {
         console.error(error);
       })
 
+    axios.get('http://localhost:5000/participants').then(result => {
+      this.setState({ participants: result.data.participants })
+    })
+      .catch(error => {
+        console.error(error);
+      })
     //send jwt token
     this.user_login()
   }
@@ -72,7 +79,7 @@ export default class App extends Component {
 
   getParticipants = (getEventsParti) => {
     var count = 0;
-    var participant = this.state.participant.filter(participant => participant.id_events === getEventsParti)
+    var participant = this.state.participants.filter(participant => participant.id_events === getEventsParti)
     for (var i = 1; i <= participant.length; i++) {
       count += 1
     }
@@ -80,8 +87,42 @@ export default class App extends Component {
   }
 
   getJoinEvent = (id) => {
-    console.log(id)
     if (this.state.join === "info") {
+      this.setState({
+        join: "danger"
+      })
+      axios.post('http://localhost:5000/participants/' + this.state.user.id, {
+        id_events: id
+      }).then(() => {
+        axios.get('http://localhost:5000/participants').then(result => {
+          this.setState({ participants: result.data.participants })
+        })
+          .catch(error => {
+            console.error(error);
+          })
+      })
+    } else {
+      var event = this.state.participants.find(participant => participant.id_events === id && participant.id_users === this.state.idUsers);
+      this.setState({
+        join: "info"
+      })
+      if (event !== undefined) {
+        axios.delete('http://localhost:5000/participants/' + event.id)
+          .then(() => {
+            axios.get('http://localhost:5000/participants').then(result => {
+              this.setState({ participants: result.data.participants })
+            })
+              .catch(error => {
+                console.error(error);
+              })
+          })
+      }
+    }
+  }
+
+  checkParticipant = (id) => {
+    var event = this.state.participants.find(participant => participant.id_events === id && participant.id_users === this.state.idUsers);
+    if (event !== undefined) {
       this.setState({
         join: "danger"
       })
@@ -91,7 +132,18 @@ export default class App extends Component {
       })
     }
   }
-
+  checkParticipant = (id) => {
+    var event = this.state.participants.find(participant => participant.id_events === id && participant.id_users === this.state.idUsers);
+    if (event !== undefined) {
+      this.setState({
+        join: "danger"
+      })
+    } else {
+      this.setState({
+        join: "info"
+      })
+    }
+  }
   render() {
     return (
       <div>
@@ -100,9 +152,8 @@ export default class App extends Component {
           <Router>
             <Route path='/login' render={(props) => (<Login {...props} isAuthenticated={this.state.isAuthenticated}
               user_login={this.user_login} />)} />
-            <Route path='/discount' render={(props) => (<DiscountEvents {...props} user={this.state.user} events={this.state.events} />)} />
             <Route path='/register' render={(props) => (<Register {...props} />)} />
-            <Route path='/' exact render={routeProps => <EventsItem events={this.state.events} {...routeProps} />} />
+            <Route path='/' exact render={routeProps => <EventsItem events={this.state.events} user={this.state.user} {...routeProps} />} />
             <Route path='/events/:id' exact render={routeProps => <DetailsEvents getEventsInfo={this.getEventsInfo} join={this.state.join} getJoinEvent={this.getJoinEvent} getParticipants={this.getParticipants} {...routeProps} />} />
           </Router>
         </div>

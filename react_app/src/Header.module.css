@@ -1,8 +1,29 @@
 #header{
+    min-height: 76px;
     background: #fffefe;
     position: fixed;
     z-index: 31;
     width: 100%;
     top: 0;
-    box-shadow: 10px 0px 5px grey
+    box-shadow: 10px 0px 5px grey;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    padding-left: 32px;
+    padding-right: 32px;
+}
+
+.logo{
+    width: 44px;
+    align-self: center;
+}
+
+.nav_right{
+    width: 30%;
+    height: 100%;
+    margin-left: auto ;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    justify-content: flex-end;
 }
