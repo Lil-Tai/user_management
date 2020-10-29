@@ -8,6 +8,7 @@ import DiscountEvents from './components/Event_Filter/DiscountEvents'
 import axios from 'axios';
 import Header from './header';
 import Footer from './footer';
+import UpdateInfo from './components/UpdateInfo';
 
 export default class App extends Component {
   constructor(props) {
@@ -20,14 +21,13 @@ export default class App extends Component {
       username: "",
       user: null,
       participants: [],
-      idUsers: 3 
+      idUsers: 3, // need to change
     }
   }
 
   componentDidMount = () => {
     axios.get('http://localhost:5000/events').then(result => {
       this.setState({ events: result.data.events })
-      console.log(result)
     })
       .catch(error => {
         console.error(error);
@@ -147,6 +147,7 @@ export default class App extends Component {
             <Route path='/register' render={(props) => (<Register {...props} />)} />
             <Route path='/' exact render={routeProps => <EventsItem events={this.state.events} checkParticipant={this.checkParticipant} {...routeProps} />} />
             <Route path='/events/:id' exact render={routeProps => <DetailsEvents getEventsInfo={this.getEventsInfo} join={this.state.join} getJoinEvent={this.getJoinEvent} getParticipants={this.getParticipants} {...routeProps} />} />
+            <Route path='/upinfo' exact render={routeProps => <UpdateInfo username={this.state.username}  {...routeProps}/>} />
           </Router>
         </div>
         <Footer />
