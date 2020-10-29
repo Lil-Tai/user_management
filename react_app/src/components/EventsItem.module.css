@@ -1,0 +1,43 @@
+#headline{
+    width: 30em;
+    height: 100px;
+    display: inline-flex;
+    -webkit-box-align: center;
+    margin: auto;
+    align-self: center;
+    align-items: center;
+    flex-wrap: wrap;
+    position: relative;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    text-align: center;
+}
+img
+{
+    align-self: flex-end;
+}
+.line{
+    width: 100%;
+    position: absolute;
+    height: 2px;
+    background: rgb(42, 45, 52);
+    border-radius: 80px;
+    bottom: -2px;
+}
+h2{
+    font-style: normal;
+    font-weight: bold;
+    font-family: "";
+    font-size: 32px;
+    line-height: 40px;
+    color: rgb(45, 194, 117);
+    margin-bottom: 8px;
+    align-self: flex-end;
+    margin-right: -18px;
+}
+#center{
+    width: 100%;
+    display: block;
+    text-align: center;
+    
+}
