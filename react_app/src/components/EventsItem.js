@@ -19,13 +19,14 @@ const EventsItem = props => {
         })
         console.log(discount)
         return (
-            <div style={{ display: 'flex', width: '100%', marginBottom: '20px' }}>
-                <div style={{ width: '90%' }}>
-
+            <div style={{ display: 'flex', minHeight: '100px',width: '100%', marginBottom: '20px' }}>
+                <div className="block-example" style={{ width: '15%', background: "#000!important", marginTop: "20px", padding: "0" }}>
+                </div>
+                <div style={{ width: '70%' }}>
                     <Container>
                     <div id={styles.center}>
                             <div id={styles.headline}>
-                                <img className={styles.img} src="../public/logo_size_invert.jpg"></img>
+                                <img className={styles.img} src="https://i.imgur.com/YyXHyXv.png"></img>
                                 <h2>Recommend for you</h2>
                                 <div className={styles.line}></div>
                                 <img src="https://i.imgur.com/U2PS6E6.png"></img>
@@ -95,7 +96,9 @@ const EventsItem = props => {
     else {
         return (
             <div style={{ display: 'flex', width: '100%', marginBottom: '20px' }}>
-                <div style={{ width: '90%' }}>
+                <div className="block-example" style={{ width: '15%', background: "#000!important", marginTop: "20px", padding: "0" }}>
+                </div>
+                <div style={{ width: '70%' }}>
                     <Container>
                         <div id={styles.center}>
                             <div id={styles.headline}>
@@ -124,7 +127,7 @@ const EventsItem = props => {
                         </Row>
                     </Container>
                 </div>
-                <div className="block-example border" style={{ width: '10%', background: "#000!important", marginTop: "20px", padding: "0" }}>
+                <div className="block-example border" style={{ width: '15%', background: "#000!important", marginTop: "20px", padding: "0" }}>
                     <p style={{ color: '#a0a0a0', fontSize: '12px', margin: '0', textAlign: 'center', padding: '0' }}>ADVERTISEMENT</p>
                     <img src="https://i.pinimg.com/236x/4a/59/e5/4a59e5361b15372fc7c2d0770ff14173--food-truck-events-food-trucks.jpg" style={{ width: "100%", height: "600px" }} />
                     <h5 style={{ textAlign: "center", marginTop: "30px", padding: "0", fontFamily: "Segoe UI, Arial, sans-serif", fontWeight: "200" }}>SHARE</h5>

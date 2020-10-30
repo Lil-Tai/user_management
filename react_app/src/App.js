@@ -134,22 +134,10 @@ export default class App extends Component {
     }
   }
 
-  checkParticipant = (id) => {
-    var event = this.state.participants.find(participant => participant.id_events === id && participant.id_users === this.state.user.id);
-    if (event !== undefined) {
-      this.setState({
-        join: "danger"
-      })
-    } else {
-      this.setState({
-        join: "info"
-      })
-    }
-  }
   render() {
     return (
       <div>
-        <Header isAuthenticated={this.state.isAuthenticated} />
+        <Header user={this.state.user} isAuthenticated={this.state.isAuthenticated} />
         <div style={{ marginTop: "100px" }}>
           <Router>
             <Route path='/login' render={(props) => (<Login {...props} isAuthenticated={this.state.isAuthenticated}
@@ -157,7 +145,7 @@ export default class App extends Component {
             <Route path='/register' render={(props) => (<Register {...props} />)} />
             <Route path='/' exact render={routeProps => <EventsItem events={this.state.events} checkParticipant={this.checkParticipant} user={this.state.user} {...routeProps} />} />
             <Route path='/events/:id' exact render={routeProps => <DetailsEvents getEventsInfo={this.getEventsInfo} join={this.state.join} getJoinEvent={this.getJoinEvent} getParticipants={this.getParticipants} {...routeProps} />} />
-            <Route path='/upinfo' exact render={routeProps => <UpdateInfo username={this.state.username}  {...routeProps}/>} />
+            <Route path='/upinfo' exact render={routeProps => <UpdateInfo username={this.state.user.username}  {...routeProps}/>} />
           </Router>
         </div>
         <Footer />
