@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from './Login.module.css';
-import { InputGroup, FormControl } from 'react-bootstrap';
+import { InputGroup, FormControl, Button } from 'react-bootstrap';
 import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 function Login(props) {
@@ -86,7 +86,7 @@ function Login(props) {
         />
       </InputGroup>
       <div>
-        <button type="submit">Login</button>
+        <Button type="submit">Login</Button>
       </div>
     </form>
   </div>
