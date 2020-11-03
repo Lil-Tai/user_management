@@ -14,7 +14,7 @@ function Login(props) {
       check_authentication()
     }
     let token = localStorage.getItem('token');
-    axios.get('http://localhost:5000/protected', 
+    axios.get('https://liltaiapi.herokuapp.com/protected', 
       {headers: {Authorization : 'JWT '+ token}
       })
     .then((response)=>{console.log(response);
@@ -32,7 +32,7 @@ function Login(props) {
   
   // request for jwt    
   function check_authentication() {
-    axios.post('http://localhost:5000/auth', {
+    axios.post('https://liltaiapi.herokuapp.com/auth', {
 
       username: username,
       password: password

@@ -24,7 +24,7 @@ function Register(props) {
         setStep(3)
     }
     function step3(event) {
-        axios.post('http://localhost:5000/register',
+        axios.post('https://liltaiapi.herokuapp.com/register',
         {
             username: username,
             password: password
