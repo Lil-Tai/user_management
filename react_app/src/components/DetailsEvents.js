@@ -65,7 +65,7 @@ export default function DetailsEvents(props) {
                         And the morning seems so grey
                         So unlike yesterday
                         Now's the time for us to say...
-                        <Button variant={props.join} onClick={() => props.getJoinEvent(eventsData.id)} style={{ marginLeft: "35%", marginTop: "10px", textAlign: "center", left: "0", color: "#fff", border: "1px solid transparent", fontSize: "1rem", position: "absolute", bottom: "0", margin: "0" }}>Join</Button>
+                        <Button variant={props.join} onClick={() => { props.isAuthenticated === false ? alert('You must login first') : props.getJoinEvent(eventsData.id)} } style={{ marginLeft: "35%", marginTop: "10px", textAlign: "center", left: "0", color: "#fff", border: "1px solid transparent", fontSize: "1rem", position: "absolute", bottom: "0", margin: "0" }}>Join</Button>
                     </div>
                     <div style={{ width: "50%", textAlign: "center" }}>
                         <img src="https://i.pinimg.com/236x/4a/59/e5/4a59e5361b15372fc7c2d0770ff14173--food-truck-events-food-trucks.jpg" style={{ width: "477.469px", height: "477.469px" }} />
