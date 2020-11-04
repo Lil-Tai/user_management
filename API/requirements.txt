@@ -6,4 +6,4 @@ flask-marshmallow==0.14.0
 marshmallow==3.9.0
 SQLAlchemy==1.2.14
 flask-restful==0.3.8
-Werkzeug==0.14.1
+Werkzeug==0.15.3
