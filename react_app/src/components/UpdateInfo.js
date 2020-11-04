@@ -14,7 +14,7 @@ export default function UpdateInfo(props) {
     const onSubmit = data => {
         var datePic = moment(data.ReactDatepicker).utc().format('MM/DD/YYYY')
         console.log(datePic)
-        axios.put('http://localhost:5000/user/' + props.username, {
+        axios.put('https://liltaiapi.herokuapp.com/user/' + props.username, {
             last_name: data.lastName,
             first_name: data.firstName,
             dob: datePic,
@@ -28,8 +28,8 @@ export default function UpdateInfo(props) {
 
     const onReset = data => {
         console.log(data.password)
-        if (data.Confirmpassword === data.password) {
-            axios.put('http://localhost:5000/forgot/' + props.username, {
+        if(data.Confirmpassword === data.password){
+            axios.put('https://liltaiapi.herokuapp.com/forgot/' + props.username, {
                 password: data.password
             })
         } else {

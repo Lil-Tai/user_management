@@ -25,14 +25,14 @@ export default class App extends Component {
   }
 
   componentDidMount = () => {
-    axios.get('http://localhost:5000/events').then(result => {
+    axios.get('https://liltaiapi.herokuapp.com/events').then(result => {
       this.setState({ events: result.data.events })
     })
       .catch(error => {
         console.error(error);
       })
 
-    axios.get('http://localhost:5000/participants').then(result => {
+    axios.get('https://liltaiapi.herokuapp.com/participants').then(result => {
         this.setState({ participants: result.data.participants })
     })
       .catch(error => {
@@ -48,14 +48,14 @@ export default class App extends Component {
     //console.log('hello', isAuthenticated);
     let token = localStorage.getItem('token');
     this.setState({ token: token })
-    axios.get('http://localhost:5000/protected',
+    axios.get('https://liltaiapi.herokuapp.com/protected',
       {
         headers: { Authorization: 'JWT ' + token }
       })
       .then((response) => {
         this.setState({ username: response.data })
         this.setState({ token: token })
-      }).then(axios.get('http://localhost:5000/user/' + this.state.username,
+      }).then(axios.get('https://liltaiapi.herokuapp.com/user/' + this.state.username,
         {
           headers: { Authorization: 'JWT ' + token }
         })
@@ -105,10 +105,10 @@ export default class App extends Component {
       this.setState({
         join: "danger"
       })
-      axios.post('http://localhost:5000/participants/' + this.state.user.id, {
+      axios.post('https://liltaiapi.herokuapp.com/participants/' + this.state.user.id, {
         id_events: id
       }).then(() => {
-        axios.get('http://localhost:5000/participants').then(result => {
+        axios.get('https://liltaiapi.herokuapp.com/participants').then(result => {
         this.setState({ participants: result.data.participants })
       })
         .catch(error => {
@@ -121,9 +121,9 @@ export default class App extends Component {
         join: "info"
       })
       if(event !== undefined){
-        axios.delete('http://localhost:5000/participants/' + event.id)
+        axios.delete('https://liltaiapi.herokuapp.com/participants/' + event.id)
         .then(() => {
-          axios.get('http://localhost:5000/participants').then(result => {
+          axios.get('https://liltaiapi.herokuapp.com/participants').then(result => {
           this.setState({ participants: result.data.participants })
         })
           .catch(error => {
