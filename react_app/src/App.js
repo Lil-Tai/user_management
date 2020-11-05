@@ -4,10 +4,7 @@ import EventsItem from './components/EventsItem';
 import DetailsEvents from './components/DetailsEvents';
 import Login from './components/Authentication/Login'
 import Register from './components/Register/Register'
-import DiscountEvents from './components/Event_Filter/DiscountEvents'
 import axios from 'axios';
-import Header from './header';
-import Footer from './footer';
 import UpdateInfo from './components/UpdateInfo';
 
 export default class App extends Component {
@@ -137,18 +134,13 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <Header user={this.state.user} isAuthenticated={this.state.isAuthenticated} />
-        <div style={{ marginTop: "100px" }}>
           <Router>
-            <Route path='/login' render={(props) => (<Login {...props} isAuthenticated={this.state.isAuthenticated}
-              user_login={this.user_login} />)} />
-            <Route path='/register' render={(props) => (<Register {...props} />)} />
-            <Route path='/' exact render={routeProps => <EventsItem events={this.state.events} checkParticipant={this.checkParticipant} user={this.state.user} {...routeProps} />} />
-            <Route path='/events/:id' exact render={routeProps => <DetailsEvents getEventsInfo={this.getEventsInfo} isAuthenticated={this.state.isAuthenticated} join={this.state.join} getJoinEvent={this.getJoinEvent} getParticipants={this.getParticipants} {...routeProps} />} />
-            <Route path='/upinfo' exact render={routeProps => <UpdateInfo username={this.state.user.username}  {...routeProps}/>} />
+            <Route path='/login' render={(props) => (<Login {...props} user={this.state.user} isAuthenticated={this.state.isAuthenticated} user_login={this.user_login} />)} />
+            <Route path='/register' render={(props) => (<Register user={this.state.user} isAuthenticated={this.state.isAuthenticated} {...props} />)} />
+            <Route path='/' exact render={routeProps => <EventsItem events={this.state.events} checkParticipant={this.checkParticipant} user={this.state.user} isAuthenticated={this.state.isAuthenticated} {...routeProps} />} />
+            <Route path='/events/:id' exact render={routeProps => <DetailsEvents getEventsInfo={this.getEventsInfo} user={this.state.user} isAuthenticated={this.state.isAuthenticated} join={this.state.join} getJoinEvent={this.getJoinEvent} getParticipants={this.getParticipants} {...routeProps} />} />
+            <Route path='/upinfo' exact render={routeProps => <UpdateInfo user={this.state.user} isAuthenticated={this.state.isAuthenticated} username={this.state.user.username}  {...routeProps}/>} />
           </Router>
-        </div>
-        <Footer />
       </div>
     );
 

@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { Card, Button, Container, Row, Col } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import styles from './EventsItem.module.css'
-
+import Header from '../header';
+import Footer from '../footer';
 
 const EventsItem = props => {
-    const [dob, setDob] = useState(props.user)
     if (props.user != null) {
 
         //let start = new Date(dob);
@@ -18,13 +18,15 @@ const EventsItem = props => {
             }
         })
         console.log(discount)
-        return (
-            <div style={{ display: 'flex', minHeight: '100px',width: '100%', marginBottom: '20px' }}>
+        return (<div>
+            <Header user={props.user} isAuthenticated={props.isAuthenticated}></Header>
+            <div style={{ marginTop: "100px" }}>
+            <div style={{ display: 'flex', minHeight: '100px', width: '100%', marginBottom: '20px' }}>
                 <div className="block-example" style={{ width: '15%', background: "#000!important", marginTop: "20px", padding: "0" }}>
                 </div>
                 <div style={{ width: '70%' }}>
                     <Container>
-                    <div id={styles.center}>
+                        <div id={styles.center}>
                             <div id={styles.headline}>
                                 <img className={styles.img} src="https://i.imgur.com/YyXHyXv.png"></img>
                                 <h2>Recommend for you</h2>
@@ -52,7 +54,7 @@ const EventsItem = props => {
                     </Container>
 
                     <Container>
-                    <div id={styles.center}>
+                        <div id={styles.center}>
                             <div id={styles.headline}>
                                 <img className={styles.img} src="https://i.imgur.com/YyXHyXv.png"></img>
                                 <h2>Events in Oulu</h2>
@@ -90,11 +92,16 @@ const EventsItem = props => {
                     </div>
                 </div>
             </div>
+            </div>
+            <Footer></Footer>
+        </div>
         )
 
     }
     else {
-        return (
+        return (<div>
+            <Header user={props.user} isAuthenticated={props.isAuthenticated}></Header>
+            <div style={{ marginTop: "100px" }}>
             <div style={{ display: 'flex', width: '100%', marginBottom: '20px' }}>
                 <div className="block-example" style={{ width: '15%', background: "#000!important", marginTop: "20px", padding: "0" }}>
                 </div>
@@ -138,6 +145,9 @@ const EventsItem = props => {
                     </div>
                 </div>
             </div>
+            </div>
+            <Footer></Footer>
+        </div>
         )
     }
 }

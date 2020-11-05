@@ -4,6 +4,9 @@ import styles from './Register.module.css';
 import { InputGroup, FormControl, Form, Button } from 'react-bootstrap';
 import { faEnvelope, faLock, faUser, } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Header from '../../header';
+import Footer from '../../footer';
+
 function Register(props) {
     const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
@@ -25,119 +28,135 @@ function Register(props) {
     }
     function step3(event) {
         axios.post('https://liltaiapi.herokuapp.com/register',
-        {
-            username: username,
-            password: password
-          }).then((response)=>{
-            console.log(response)
-            props.history.push("/");
-        })
-        .catch((error)=>{
-            console.log(error)
-        })
+            {
+                username: username,
+                password: password
+            }).then((response) => {
+                console.log(response)
+                props.history.push("/");
+            })
+            .catch((error) => {
+                console.log(error)
+            })
         console.log(step)
     }
-    function updateUsername(event){
+    function updateUsername(event) {
         setUsername(event.target.value)
     }
-    function updateEmail(event){
+    function updateEmail(event) {
         setEmail(event.target.value)
     }
-    function updatePassword(event){
+    function updatePassword(event) {
         setPassword(event.target.value)
     }
-    function handleChange(event)
-    {
+    function handleChange(event) {
         setIsCheck(event.target.checked)
     }
     if (step == 1)
         return (
-            <div className={styles.register_box}>
-                <div>This is register form</div>
-                <div>
-                    <ul>
-                        <li>Step 1</li>
-                        <li>Step 1</li>
-                        <li>Step 1</li>
-                        <li>Step 1</li>
-                    </ul>
-                </div>
-                <form onSubmit={step1}>
-                    <InputGroup className="mb-3">
-                        <InputGroup.Prepend>
-                            <InputGroup.Text><FontAwesomeIcon icon={faUser} /></InputGroup.Text>
-                        </InputGroup.Prepend>
-                        <FormControl
-                            placeholder="Username"
-                            aria-label="Username"
-                            aria-describedby="basic-addon1"
-                            type="text" name="username"
-                            onChange={updateUsername}
-                            value={username}
-                        />
-                    </InputGroup>
-                    <InputGroup className="mb-3">
-                        <InputGroup.Prepend>
-                            <InputGroup.Text><FontAwesomeIcon icon={faEnvelope} /></InputGroup.Text>
-                        </InputGroup.Prepend>
-                        <FormControl
-                            placeholder="Email"
-                            aria-label="Email"
-                            aria-describedby="basic-addon1"
-                            type="text" name="email"
-                            onChange={updateEmail}
-                            value={email}  
-                        />
-                    </InputGroup>
-                    <InputGroup className="mb-3">
-                        <InputGroup.Prepend>
-                            <InputGroup.Text><FontAwesomeIcon icon={faLock} /></InputGroup.Text>
-                        </InputGroup.Prepend>
-                        <FormControl
-                            placeholder="Password"
-                            aria-label="Password"
-                            aria-describedby="basic-addon1"
-                            type="password" name="password"
-                            onChange={updatePassword}
-                            value={password}  
-                        />
-                    </InputGroup>
-                    <div>
-                        <button type="submit">Next</button>
+            <div>
+                <Header user={props.user} isAuthenticated={props.isAuthenticated}></Header>
+                <div style={{ marginTop: "100px" }}>
+                    <div className={styles.register_box}>
+                        <div>This is register form</div>
+                        <div>
+                            <ul>
+                                <li>Step 1</li>
+                                <li>Step 1</li>
+                                <li>Step 1</li>
+                                <li>Step 1</li>
+                            </ul>
+                        </div>
+                        <form onSubmit={step1}>
+                            <InputGroup className="mb-3">
+                                <InputGroup.Prepend>
+                                    <InputGroup.Text><FontAwesomeIcon icon={faUser} /></InputGroup.Text>
+                                </InputGroup.Prepend>
+                                <FormControl
+                                    placeholder="Username"
+                                    aria-label="Username"
+                                    aria-describedby="basic-addon1"
+                                    type="text" name="username"
+                                    onChange={updateUsername}
+                                    value={username}
+                                />
+                            </InputGroup>
+                            <InputGroup className="mb-3">
+                                <InputGroup.Prepend>
+                                    <InputGroup.Text><FontAwesomeIcon icon={faEnvelope} /></InputGroup.Text>
+                                </InputGroup.Prepend>
+                                <FormControl
+                                    placeholder="Email"
+                                    aria-label="Email"
+                                    aria-describedby="basic-addon1"
+                                    type="text" name="email"
+                                    onChange={updateEmail}
+                                    value={email}
+                                />
+                            </InputGroup>
+                            <InputGroup className="mb-3">
+                                <InputGroup.Prepend>
+                                    <InputGroup.Text><FontAwesomeIcon icon={faLock} /></InputGroup.Text>
+                                </InputGroup.Prepend>
+                                <FormControl
+                                    placeholder="Password"
+                                    aria-label="Password"
+                                    aria-describedby="basic-addon1"
+                                    type="password" name="password"
+                                    onChange={updatePassword}
+                                    value={password}
+                                />
+                            </InputGroup>
+                            <div>
+                                <button type="submit">Next</button>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </div>
+                <Footer></Footer>
             </div>
         )
     else if (step == 2) {
         return (
+            <div>
+                <Header user={props.user} isAuthenticated={props.isAuthenticated}></Header>
+                <div style={{ marginTop: "100px" }}>
+                    <div className={styles.register_box}>
+                        <div>This is step 2</div>
+                        <Form>
+                            <Form.Group>
+                                <Form.Check
+                                    required
+                                    name="terms"
+                                    label="Agree to terms and conditions"
+                                    id="validationFormik0"
+                                    checked={isCheck}
+                                    onChange={handleChange}
+                                />
+                            </Form.Group>
 
-            <div className={styles.register_box}>
-                <div>This is step 2</div>
-                <Form>
-                    <Form.Group>
-                        <Form.Check
-                            required
-                            name="terms"
-                            label="Agree to terms and conditions"
-                            id="validationFormik0"
-                            checked={isCheck}
-                            onChange={handleChange}
-                        />
-                    </Form.Group>
 
-                    
-                </Form>
-                <Button onClick={step2_back}>Previous</Button>
-                <Button disabled={!isCheck} onClick={step2_next}>Next</Button>
+                        </Form>
+                        <Button onClick={step2_back}>Previous</Button>
+                        <Button disabled={!isCheck} onClick={step2_next}>Next</Button>
+                    </div>
+                </div>
+                <Footer></Footer>
             </div>
         )
     }
     else if (step == 3) {
         return (
-            <div className={styles.register_box}>
-                <div>
-                    <Button onClick={step3}>Confirm</Button>
+            <div>
+                <Header user={props.user} isAuthenticated={props.isAuthenticated}></Header>
+                <div style={{ marginTop: "100px" }}>
+                    <div className={styles.register_box}>
+                        <div>
+                            <Button onClick={step3}>Confirm</Button>
+                        </div>
+                    </div>
                 </div>
+                <Footer></Footer>
             </div>
         )
     }
