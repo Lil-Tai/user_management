@@ -134,7 +134,6 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        
           <Router>
             <Route path='/login' render={(props) => (<Login {...props} user={this.state.user} isAuthenticated={this.state.isAuthenticated} user_login={this.user_login} />)} />
             <Route path='/register' render={(props) => (<Register user={this.state.user} isAuthenticated={this.state.isAuthenticated} {...props} />)} />
